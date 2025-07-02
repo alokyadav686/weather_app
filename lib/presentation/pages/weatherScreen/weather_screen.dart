@@ -47,12 +47,12 @@ class WeatherScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-          
+
               const SizedBox(height: 20),
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[850] : Colors.grey[200],
+                  color: isDark ? Colors.grey[850] : Colors.blue[50],
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -87,7 +87,7 @@ class WeatherScreen extends StatelessWidget {
                         color: isDark ? Colors.white30 : Colors.black26,
                         thickness: 1,
                       ),
-          
+
                       SizedBox(height: 20),
                       Container(
                         height: 150,
@@ -113,7 +113,7 @@ class WeatherScreen extends StatelessWidget {
                                 size: 40,
                                 color: isDark ? Colors.white : Colors.black,
                               ),
-          
+
                               Text(
                                 "19°",
                                 style: TextStyle(
@@ -131,39 +131,171 @@ class WeatherScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 20),
+
               // aqi
-              
               Container(
                 padding: const EdgeInsets.all(20),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[800] : Colors.blue[100],
-                  borderRadius: BorderRadius.circular(12),
+                  color: isDark ? Colors.grey[850] : Colors.blue[50],
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    if (!isDark)
+                      BoxShadow(
+                        color: Colors.black12,
+                        blurRadius: 6,
+                        offset: Offset(0, 2),
+                      ),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.air,
+                          size: 30,
+                          color: isDark ? Colors.white : Colors.blue,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          "Air Quality Index (AQI)",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // AQI value and category
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "AQI: 42",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: isDark ? Colors.white : Colors.black,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 6,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: const Text(
+                            "Good",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+
+                    // Health message
                     Text(
-                      "Air Quality Index (AQI)",
+                      "Air quality is considered satisfactory, and air pollution poses little or no risk.",
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: isDark ? Colors.white : Colors.black,
+                        fontSize: 14,
+                        color: isDark ? Colors.white70 : Colors.black87,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Text(
-                      "Good",
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: isDark ? Colors.greenAccent : Colors.green,
-                      ),
+
+                    const SizedBox(height: 16),
+
+                    // AQI level bar
+                    Stack(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(height: 8, color: Colors.yellow),
+                            ),
+                            Expanded(
+                              child: Container(height: 8, color: Colors.orange),
+                            ),
+                            Expanded(
+                              child: Container(height: 8, color: Colors.red),
+                            ),
+                            Expanded(
+                              child: Container(height: 8, color: Colors.purple),
+                            ),
+                            Expanded(
+                              child: Container(height: 8, color: Colors.brown),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 8,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: const BorderRadius.only(
+                                    topRight: Radius.circular(8),
+                                    bottomRight: Radius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        Positioned(
+                          left: 30,
+                          top: -3,
+                          child: Container(
+                            width: 14,
+                            height: 14,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.black.withOpacity(0.4),
+                                width: 1.5,
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  blurRadius: 3,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+
+                    const SizedBox(height: 4),
                   ],
                 ),
-              ), 
+              ),
+
+              const SizedBox(height: 20),
             ],
           ),
         ),
