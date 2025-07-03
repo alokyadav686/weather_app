@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
-import 'package:get/get.dart';
-import 'package:weather_app/presentation/pages/weatherScreen/weather_screen.dart';
+import 'package:weather_app/presentation/controllers/home_controller.dart';
+import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,6 +12,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
+    final controller = Get.find<HomeController>();
+
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
@@ -37,6 +41,7 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
 
+            // Search field
             TextField(
               decoration: InputDecoration(
                 hintText: 'Search for a city',
@@ -55,101 +60,20 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               style: TextStyle(color: isDark ? Colors.white : Colors.black),
-              onChanged: (value) {
-                print("Searching for: $value");
-              },
+              onChanged: controller.onCitySearch,
             ),
 
-            // card for current weather
             const SizedBox(height: 20),
 
-            InkWell(
-              onTap: () {
-                // Navigate to weather details screen
-                Get.to(WeatherScreen());
-              },
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[800] : Colors.blue[100],
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Ghaziabad",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: isDark ? Colors.white : Colors.black,
-                              ),
-                            ),
-                            Text(
-                              "Current Weather",
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                color: isDark ? Colors.white : Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          "25°",
-                          style: TextStyle(
-                            fontSize: 40,
-                            color: isDark ? Colors.white70 : Colors.black87,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Sunny",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: isDark ? Colors.white70 : Colors.black87,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "14",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: isDark ? Colors.white70 : Colors.black87,
-                              ),
-                            ),
-
-                            const SizedBox(width: 10),
-                            Text(
-                              "10",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: isDark ? Colors.white70 : Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Weather summary card
+            Obx(() => WeatherCard(
+                  city: controller.city.value,
+                  temp: controller.temp.value,
+                  condition: controller.condition.value,
+                  high: controller.high.value,
+                  low: controller.low.value,
+                  isDark: isDark,
+                )),
           ],
         ),
       ),
