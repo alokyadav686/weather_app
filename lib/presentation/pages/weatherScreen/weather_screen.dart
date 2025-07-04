@@ -4,6 +4,7 @@ import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/aqi_widget.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/feels_humd.dart';
+import 'package:weather_app/presentation/widgets/weatherScreenWidgets/visibility&pressure.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/weather_header.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/wind.dart';
 
@@ -52,6 +53,15 @@ class WeatherScreen extends StatelessWidget {
                 gust: weather.wind.gust,
                 isDark: isDark,
               ),
+
+              const SizedBox(height: 20),
+
+              VisibilityPressure(
+                visibility: weather.visibility / 1000, 
+                pressure: weather.main.pressure,
+                isDark: isDark,
+              ),
+
             ],
           ),
         ),
