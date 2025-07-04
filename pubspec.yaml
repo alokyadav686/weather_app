@@ -6,10 +6,6 @@ version: 1.0.0+1
 environment:
   sdk: ^3.7.2
 
-assets:
-  - assets/images/
-  - assets/icons/
-  - assets/lottie/
 
 dependencies:
   flutter:
@@ -29,3 +25,8 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/lottie/
+    - assets/icons/

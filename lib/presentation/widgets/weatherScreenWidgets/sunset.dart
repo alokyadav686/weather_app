@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
-
-
 class SunPathWidget extends StatelessWidget {
   final String sunsetTime;
   final String sunriseTime;
@@ -27,13 +25,29 @@ class SunPathWidget extends StatelessWidget {
     final sunset = format.parse(sunsetTime);
 
     // Align sunrise and sunset to today
-    final sunriseToday = DateTime(now.year, now.month, now.day, sunrise.hour, sunrise.minute);
-    final sunsetToday = DateTime(now.year, now.month, now.day, sunset.hour, sunset.minute);
+    final sunriseToday = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      sunrise.hour,
+      sunrise.minute,
+    );
+    final sunsetToday = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      sunset.hour,
+      sunset.minute,
+    );
 
     final totalDuration = sunsetToday.difference(sunriseToday).inSeconds;
-    final elapsed = now.difference(sunriseToday).inSeconds.clamp(0, totalDuration);
+    final elapsed = now
+        .difference(sunriseToday)
+        .inSeconds
+        .clamp(0, totalDuration);
 
-    final sunPositionFactor = totalDuration == 0 ? 0.0 : elapsed / totalDuration;
+    final sunPositionFactor =
+        totalDuration == 0 ? 0.0 : elapsed / totalDuration;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -46,13 +60,9 @@ class SunPathWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 24,
+              SizedBox(
                 height: 24,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: textColor.withOpacity(0.8),
-                ),
+                width: 24,
                 child: Lottie.asset('assets/lottie/sun.json'),
               ),
               const SizedBox(width: 6),
@@ -108,29 +118,33 @@ class SunPathWidget extends StatelessWidget {
     );
   }
 }
+
 class SunArcPainter extends CustomPainter {
   final Color sunColor;
-  final double progress; 
+  final double progress;
 
   SunArcPainter({required this.sunColor, required this.progress});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint arcPaint = Paint()
-      ..color = sunColor.withOpacity(0.3)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.8;
+    final Paint arcPaint =
+        Paint()
+          ..color = sunColor.withOpacity(0.3)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.8;
 
-    final Paint sunDotPaint = Paint()
-      ..color = Colors.deepOrangeAccent
-      ..style = PaintingStyle.fill;
+    final Paint sunDotPaint =
+        Paint()
+          ..color = Colors.deepOrangeAccent
+          ..style = PaintingStyle.fill;
 
     final double width = size.width;
     final double height = size.height;
 
-    final Path arcPath = Path()
-      ..moveTo(0, height)
-      ..quadraticBezierTo(width / 2, 0, width, height);
+    final Path arcPath =
+        Path()
+          ..moveTo(0, height)
+          ..quadraticBezierTo(width / 2, 0, width, height);
     canvas.drawPath(arcPath, arcPaint);
 
     final double sunX = progress * width;
@@ -146,15 +160,18 @@ class SunArcPainter extends CustomPainter {
       true,
     );
 
-    final Paint horizonPaint = Paint()
-      ..color = sunColor.withOpacity(0.2)
-      ..strokeWidth = 1;
-    canvas.drawLine(Offset(0, height - 20), Offset(width, height - 20), horizonPaint);
+    final Paint horizonPaint =
+        Paint()
+          ..color = sunColor.withOpacity(0.2)
+          ..strokeWidth = 1;
+    canvas.drawLine(
+      Offset(0, height - 20),
+      Offset(width, height - 20),
+      horizonPaint,
+    );
   }
 
   double _getArcY(double x, double width, double height) {
-    
-    
     final h = width / 2;
     final k = 0.0;
     final a = height / (h * h);
