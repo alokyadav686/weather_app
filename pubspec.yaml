@@ -23,6 +23,13 @@ dev_dependencies:
   http: ^1.4.0
   intl: ^0.20.2
   lottie: ^3.3.1
+  flutter_launcher_icons: ^0.14.4
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/splash.png"
+  remove_alpha_ios: true
 
 flutter:
   uses-material-design: true

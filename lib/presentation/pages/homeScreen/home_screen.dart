@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: isDark ? Colors.black : Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: isDark ? Colors.blueGrey[900]: Colors.blue.shade100,
+        backgroundColor: isDark ? Colors.blueGrey[900] : Colors.blue.shade100,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -47,14 +47,13 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding:  AppSpacingStyles.sidePadding ,
+          padding: AppSpacingStyles.sidePadding,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                
-                
+
                 TextField(
                   decoration: InputDecoration(
                     hintText: 'Search for a city',
@@ -75,10 +74,9 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(color: isDark ? Colors.white : Colors.black),
                   onChanged: weatherController.onSearchChanged,
                 ),
-                
+
                 const SizedBox(height: 10),
-                
-                
+
                 Obx(() {
                   final suggestions = weatherController.filteredCities;
                   return suggestions.isNotEmpty
@@ -101,16 +99,15 @@ class HomeScreen extends StatelessWidget {
                       )
                       : const SizedBox();
                 }),
-                
+
                 const SizedBox(height: 20),
-                
-                
+
                 Obx(() {
                   final weatherList = weatherController.weatherList;
                   if (weatherList.isEmpty) {
                     return const Center(child: CircularProgressIndicator());
                   }
-                
+
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
