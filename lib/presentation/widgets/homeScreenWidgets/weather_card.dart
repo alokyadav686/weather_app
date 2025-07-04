@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/presentation/pages/weatherScreen/weather_screen.dart';
 
 class WeatherCard extends StatelessWidget {
-  final String city;
-  final int temp;
-  final String condition;
-  final int high;
-  final int low;
+  final Weather weather;
   final bool isDark;
 
   const WeatherCard({
     super.key,
-    required this.city,
-    required this.temp,
-    required this.condition,
-    required this.high,
-    required this.low,
+    required this.weather,
     required this.isDark,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(const WeatherScreen()),
+      onTap: () => Get.to(() => WeatherScreen(weather: weather)),
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(20),
@@ -43,7 +36,7 @@ class WeatherCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      city,
+                      weather.name,
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -61,7 +54,7 @@ class WeatherCard extends StatelessWidget {
                   ],
                 ),
                 Text(
-                  "$temp°",
+                  "${weather.main.temp.round()}°",
                   style: TextStyle(
                     fontSize: 40,
                     color: isDark ? Colors.white70 : Colors.black87,
@@ -76,7 +69,7 @@ class WeatherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  condition,
+                  weather.weather.first.description,
                   style: TextStyle(
                     fontSize: 18,
                     color: isDark ? Colors.white70 : Colors.black87,
@@ -85,7 +78,7 @@ class WeatherCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'H:${high.toString()}°',
+                      'H:${weather.main.tempMax.round()}°',
                       style: TextStyle(
                         fontSize: 16,
                         color: isDark ? Colors.white70 : Colors.black87,
@@ -93,7 +86,7 @@ class WeatherCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      'L:${low.toString()}°',
+                      'L:${weather.main.tempMin.round()}°',
                       style: TextStyle(
                         fontSize: 16,
                         color: isDark ? Colors.white70 : Colors.black87,

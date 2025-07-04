@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
-import 'package:weather_app/presentation/controllers/weather_controller.dart';
+import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/aqi_widget.dart';
-import 'package:weather_app/presentation/widgets/weatherScreenWidgets/forecast_section.dart';
+import 'package:weather_app/presentation/widgets/weatherScreenWidgets/feels_humd.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/weather_header.dart';
-import 'package:get/get.dart';
+import 'package:weather_app/presentation/widgets/weatherScreenWidgets/wind.dart';
 
 class WeatherScreen extends StatelessWidget {
-  const WeatherScreen({super.key});
+  final Weather weather;
+
+  const WeatherScreen({super.key, required this.weather});
 
   @override
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
-
-    final WeatherController controller = Get.put(WeatherController());
 
     return Scaffold(
       body: Padding(
@@ -22,12 +22,36 @@ class WeatherScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              WeatherHeader(isDark: isDark),
+              WeatherHeader(
+                isDark: isDark,
+                city: weather.name,
+                temp: weather.main.temp.round(),
+                condition: weather.weather.first.description,
+                high: weather.main.tempMax.round(),
+                low: weather.main.tempMin.round(),
+              ),
               const SizedBox(height: 20),
-              ForecastSection(isDark: isDark),
+              // ForecastSection(isDark: isDark),
               const SizedBox(height: 20),
-              AQIWidget(isDark: isDark, aqiValue: 42),
+              AQIWidget(
+                isDark: isDark,
+                aqiValue: 42.0, // Placeholder, replace with real AQI if needed
+              ),
               const SizedBox(height: 20),
+              FeelsHumd(
+                feelsLike: weather.main.feelsLike.round(),
+                temp: weather.main.temp.round(),
+                humidity: weather.main.humidity,
+                isDark: isDark,
+              ),
+              const SizedBox(height: 8),
+
+              WindWidget(
+                speed: weather.wind.speed,
+                deg: weather.wind.deg.toDouble(),
+                gust: weather.wind.gust,
+                isDark: isDark,
+              ),
             ],
           ),
         ),

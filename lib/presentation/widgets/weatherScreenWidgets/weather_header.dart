@@ -2,21 +2,74 @@ import 'package:flutter/material.dart';
 
 class WeatherHeader extends StatelessWidget {
   final bool isDark;
+  final String city;
+  final int temp;
+  final String condition;
+  final int high;
+  final int low;
 
-  const WeatherHeader({super.key, required this.isDark});
+  const WeatherHeader({
+    super.key,
+    required this.isDark,
+    required this.city,
+    required this.temp,
+    required this.condition,
+    required this.high,
+    required this.low,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final color = isDark ? Colors.white : Colors.black;
-    final subColor = isDark ? Colors.white70 : Colors.black54;
+    final textColor = isDark ? Colors.white : Colors.black;
+    final subTextColor = isDark ? Colors.grey[300] : Colors.grey[700];
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("Ghaziabad", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: color)),
-        const SizedBox(height: 10),
-        Text("25°C", style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: color)),
-        Text("Sunny", style: TextStyle(fontSize: 20, color: subColor)),
-        Text("H: 30°C, L: 20°C", style: TextStyle(fontSize: 16, color: subColor, fontWeight: FontWeight.bold)),
+        
+        Text(
+          city,
+          style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.w600,
+            color: textColor,
+            letterSpacing: 0.8,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+        
+        Text(
+          "$temp°C",
+          style: TextStyle(
+            fontSize: 60,
+            fontWeight: FontWeight.bold,
+            color: textColor,
+          ),
+        ),
+        const SizedBox(height: 8),
+
+
+        Text(
+          condition,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
+            color: subTextColor,
+            letterSpacing: 0.5,
+          ),
+        ),
+        const SizedBox(height: 6),
+
+        // High / Low
+        Text(
+          "H: $high°C  •  L: $low°C",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: subTextColor,
+          ),
+        ),
       ],
     );
   }

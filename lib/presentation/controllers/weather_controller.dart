@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:weather_app/common/utils/contants/api_constants.dart';
@@ -8,9 +9,21 @@ class WeatherController extends GetxController {
   var city = 'Hazaribagh'.obs;
 
   var allCities = <String>[
-    'Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bangalore', 'Hyderabad',
-    'Pune', 'Hazaribagh', 'Ranchi', 'Patna', 'Lucknow', 'Kanpur',
-    'Ghaziabad', 'Noida', 'Chandigarh'
+    'Delhi',
+    'Mumbai',
+    'Kolkata',
+    'Chennai',
+    'Bangalore',
+    'Hyderabad',
+    'Pune',
+    'Hazaribagh',
+    'Ranchi',
+    'Patna',
+    'Lucknow',
+    'Kanpur',
+    'Ghaziabad',
+    'Noida',
+    'Chandigarh',
   ];
 
   var filteredCities = <String>[].obs;
@@ -34,20 +47,42 @@ class WeatherController extends GetxController {
   }
 
   void fetchWeather() async {
-    
-    final alreadyExists = weatherList.any((w) =>
-        w.name.toLowerCase() == city.value.trim().toLowerCase());
+    final normalizedCity = city.value.trim().toLowerCase();
+
+    final alreadyExists = weatherList.any(
+      (w) => w.name.trim().toLowerCase() == normalizedCity,
+    );
 
     if (alreadyExists) {
-      print("City already exists in the list.");
+      Get.snackbar(
+        "Already Added",
+        "${city.value.trim()} is already in the list.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.orange.withOpacity(0.8),
+        colorText: Colors.white,
+      );
       return;
     }
 
     var weatherData = await getWeather();
     if (weatherData is Weather) {
       weatherList.add(weatherData);
+
+      Get.snackbar(
+        "City Added",
+        "${weatherData.name} weather added successfully.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.8),
+        colorText: Colors.white,
+      );
     } else {
-      print('Error fetching weather');
+      Get.snackbar(
+        "Error",
+        "Failed to fetch weather data.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.withOpacity(0.8),
+        colorText: Colors.white,
+      );
     }
   }
 
@@ -55,9 +90,10 @@ class WeatherController extends GetxController {
     if (query.isEmpty) {
       filteredCities.clear();
     } else {
-      filteredCities.value = allCities
-          .where((c) => c.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      filteredCities.value =
+          allCities
+              .where((c) => c.toLowerCase().contains(query.toLowerCase()))
+              .toList();
     }
   }
 

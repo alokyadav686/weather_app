@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // 📝 Suggestions
+              // 🔹 Suggestions
               Obx(() {
                 final suggestions = weatherController.filteredCities;
                 return suggestions.isNotEmpty
@@ -82,8 +82,7 @@ class HomeScreen extends StatelessWidget {
                                 color: isDark ? Colors.white : Colors.black,
                               ),
                             ),
-                            onTap: () =>
-                                weatherController.onCitySelected(city),
+                            onTap: () => weatherController.onCitySelected(city),
                           );
                         },
                       )
@@ -108,11 +107,7 @@ class HomeScreen extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: WeatherCard(
-                        city: weather.name,
-                        temp: weather.main.temp.round(),
-                        condition: weather.weather.first.description,
-                        high: weather.main.tempMax.round(),
-                        low: weather.main.tempMin.round(),
+                        weather: weather,
                         isDark: isDark,
                       ),
                     );
