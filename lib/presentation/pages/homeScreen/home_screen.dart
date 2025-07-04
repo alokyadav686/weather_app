@@ -37,10 +37,11 @@ class HomeScreen extends StatelessWidget {
         padding: AppSpacingStyles.sidePadding,
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
 
-              // Search field
+              // 🔍 Search bar
               TextField(
                 decoration: InputDecoration(
                   hintText: 'Search for a city',
@@ -59,40 +60,65 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 style: TextStyle(color: isDark ? Colors.white : Colors.black),
-                onChanged: (String input) {
-                  if (input.isNotEmpty) {
-                    weatherController.city.value = input;
-                    weatherController.weatherList.clear();
-                    weatherController.fetchWeather();
-                  }
-                },
+                onChanged: weatherController.onSearchChanged,
               ),
+
+              const SizedBox(height: 10),
+
+              // 📝 Suggestions
+              Obx(() {
+                final suggestions = weatherController.filteredCities;
+                return suggestions.isNotEmpty
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: suggestions.length,
+                        itemBuilder: (context, index) {
+                          final city = suggestions[index];
+                          return ListTile(
+                            title: Text(
+                              city,
+                              style: TextStyle(
+                                color: isDark ? Colors.white : Colors.black,
+                              ),
+                            ),
+                            onTap: () =>
+                                weatherController.onCitySelected(city),
+                          );
+                        },
+                      )
+                    : const SizedBox();
+              }),
 
               const SizedBox(height: 20),
 
-              // Weather summary card
-              Obx(
-                () =>
-                    weatherController.weatherList.isEmpty
-                        ? const Center(child: CircularProgressIndicator())
-                        : ListView.builder(
-                          itemCount: weatherController.weatherList.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            final weather =
-                                weatherController.weatherList[index];
-                            return WeatherCard(
-                              city: weather.name,
-                              temp: weather.main.temp.round(),
-                              condition: weather.weather.first.description,
-                              high: weather.main.tempMax.round(),
-                              low: weather.main.tempMin.round(),
-                              isDark: isDark,
-                            );
-                          },
-                        ),
-              ),
+              // 🌤️ Weather Cards
+              Obx(() {
+                final weatherList = weatherController.weatherList;
+                if (weatherList.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: weatherList.length,
+                  itemBuilder: (context, index) {
+                    final weather = weatherList[index];
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: WeatherCard(
+                        city: weather.name,
+                        temp: weather.main.temp.round(),
+                        condition: weather.weather.first.description,
+                        high: weather.main.tempMax.round(),
+                        low: weather.main.tempMin.round(),
+                        isDark: isDark,
+                      ),
+                    );
+                  },
+                );
+              }),
             ],
           ),
         ),
