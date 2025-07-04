@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/common/utils/contants/text_constants.dart';
 
 class AQIWidget extends StatelessWidget {
   final bool isDark;
@@ -28,7 +29,7 @@ class AQIWidget extends StatelessWidget {
             children: [
               Icon(Icons.air, size: 30, color: isDark ? Colors.white : Colors.blue),
               const SizedBox(width: 10),
-              Text("Air Quality Index (AQI)", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
+              Text(AppTextConstants.aqiLabel, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: isDark ? Colors.white : Colors.black)),
             ],
           ),
           const SizedBox(height: 16),

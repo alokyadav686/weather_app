@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
+import 'package:weather_app/common/utils/contants/text_constants.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/presentation/controllers/weather_controller.dart';
 import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
@@ -56,7 +57,7 @@ class HomeScreen extends StatelessWidget {
 
                 TextField(
                   decoration: InputDecoration(
-                    hintText: 'Search for a city',
+                    hintText: AppTextConstants.searchHint,
                     hintStyle: TextStyle(
                       color: isDark ? Colors.grey[400] : Colors.grey[700],
                     ),
