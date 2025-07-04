@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/data/models/weather.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/aqi_widget.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/feels_humd.dart';
+import 'package:weather_app/presentation/widgets/weatherScreenWidgets/sunset.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/visibility&pressure.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/weather_header.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/wind.dart';
@@ -12,6 +14,15 @@ class WeatherScreen extends StatelessWidget {
   final Weather weather;
 
   const WeatherScreen({super.key, required this.weather});
+
+
+  String formatTimeFromUnix(int utcTimestamp, int timezoneOffsetInSeconds) {
+    final localTime = DateTime.fromMillisecondsSinceEpoch(
+      (utcTimestamp + timezoneOffsetInSeconds) * 1000,
+      isUtc: true,
+    );
+    return DateFormat('hh:mm a').format(localTime);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,13 +42,14 @@ class WeatherScreen extends StatelessWidget {
                 high: weather.main.tempMax.round(),
                 low: weather.main.tempMin.round(),
               ),
-              const SizedBox(height: 20),
-              // ForecastSection(isDark: isDark),
-              const SizedBox(height: 20),
+
+              
+              const SizedBox(height: 30),
               AQIWidget(
                 isDark: isDark,
-                aqiValue: 42.0, // Placeholder, replace with real AQI if needed
+                aqiValue: 42.0, 
               ),
+
               const SizedBox(height: 20),
               FeelsHumd(
                 feelsLike: weather.main.feelsLike.round(),
@@ -45,6 +57,7 @@ class WeatherScreen extends StatelessWidget {
                 humidity: weather.main.humidity,
                 isDark: isDark,
               ),
+
               const SizedBox(height: 8),
 
               WindWidget(
@@ -55,13 +68,18 @@ class WeatherScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 20),
-
+              
               VisibilityPressure(
-                visibility: weather.visibility / 1000, 
+                visibility: weather.visibility / 1000,
                 pressure: weather.main.pressure,
                 isDark: isDark,
               ),
-
+              const SizedBox(height: 20),
+              SunPathWidget(
+                sunriseTime: formatTimeFromUnix(weather.sys.sunrise, weather.timezone),
+                sunsetTime: formatTimeFromUnix(weather.sys.sunset, weather.timezone),
+                isDark: isDark,
+              ),
             ],
           ),
         ),
