@@ -25,6 +25,7 @@ class WeatherCard extends StatelessWidget {
     return InkWell(
       onTap: () => Get.to(const WeatherScreen()),
       child: Container(
+        margin: const EdgeInsets.only(bottom: 20),
         padding: const EdgeInsets.all(20),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -41,16 +42,22 @@ class WeatherCard extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(city,
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: isDark ? Colors.white : Colors.black)),
-                    Text("Current Weather",
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: isDark ? Colors.white : Colors.black)),
+                    Text(
+                      city,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                    ),
+                    Text(
+                      "Current Weather",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: isDark ? Colors.white : Colors.black,
+                      ),
+                    ),
                   ],
                 ),
                 Text(
@@ -99,7 +106,6 @@ class WeatherCard extends StatelessWidget {
           ],
         ),
       ),
-      
     );
   }
 }

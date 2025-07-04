@@ -10,15 +10,15 @@ void main() {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      initialBinding: HomeBinding(),
-      getPages: [
-        GetPage(
-          name: '/home',
-          page: () => const HomeScreen(),
-          binding: HomeBinding(),
-        ),
+      // initialBinding: HomeBinding(),
+      // getPages: [
+      //   GetPage(
+      //     name: '/home',
+      //     page: () => const HomeScreen(),
+      //     binding: HomeBinding(),
+      //   ),
         // Add others here
-      ],
+      // ],
 
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
