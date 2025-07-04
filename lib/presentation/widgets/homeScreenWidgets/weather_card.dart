@@ -78,7 +78,7 @@ class WeatherCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "$high",
+                      'H:${high.toString()}°',
                       style: TextStyle(
                         fontSize: 16,
                         color: isDark ? Colors.white70 : Colors.black87,
@@ -86,7 +86,7 @@ class WeatherCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 10),
                     Text(
-                      "$low",
+                      'L:${low.toString()}°',
                       style: TextStyle(
                         fontSize: 16,
                         color: isDark ? Colors.white70 : Colors.black87,
@@ -99,6 +99,7 @@ class WeatherCard extends StatelessWidget {
           ],
         ),
       ),
+      
     );
   }
 }

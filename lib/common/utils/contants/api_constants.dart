@@ -1,3 +1,7 @@
 class APIConstants {
-  static const String weatherApiKey ="https://api.weatherapi.com/v1/forecast.json?key=10ec7e0cc8ad4314a5e70507250307&q=London&days=7&aqi=yes&alerts=yes";
+  
+  static const String baseUrl ='https://api.openweathermap.org/data/2.5/weather?q=hazaribagh&appid=4550f8fde91670ead19ac0ec102fb6c9&units=metric';
+
+
+  static const  String apiKey = "4550f8fde91670ead19ac0ec102fb6c9";
 }

@@ -4,35 +4,43 @@ import 'package:weather_app/common/utils/contants/api_constants.dart';
 import 'package:weather_app/data/models/weather.dart';
 
 class WeatherController extends GetxController {
-  var weatherData = {}.obs;
+  var weatherList = <Weather>[].obs;
+  var t = 2.obs;
   var isLoading = true.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchWeather();
+    
   }
 
   Future<Object> getWeather() async {
-    var weather = await http.get(Uri.parse(APIConstants.weatherApiKey));
+    var response = await http.get(Uri.parse(APIConstants.baseUrl));
 
-    if (weather.statusCode == 200) {
-      var jsonString = weather.body;
+    if (response.statusCode == 200) {
+      var jsonString = response.body;
 
-      return welcomeFromJson(jsonString);
+      return weatherFromJson(jsonString);
     } else {
       return [];
     }
   }
 
-  void fetchWeather() async {
-    var weathers = await getWeather();
+  void fetchWeather() async{
+    var weatherData = await getWeather();
 
-    try {
-      isLoading(true);
-      weatherData.value = weathers as Map<String, dynamic>;
-    } finally {
-      isLoading(false);
+    if (weatherData is Weather) {
+      weatherList.add(weatherData);
+      print('Weather data fetched successfully');
+      
+    } else if (weatherData is List<Weather>) {
+      weatherList.addAll(weatherData);
+    } else {
+      print('Error fetching weather data');
     }
   }
+
+
+
 }

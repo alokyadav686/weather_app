@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/presentation/controllers/home_controller.dart';
+import 'package:weather_app/presentation/controllers/weather_controller.dart';
 import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final controller = Get.find<HomeController>();
+    final WeatherController weatherController = Get.put(WeatherController());
 
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
@@ -66,14 +67,28 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 20),
 
             // Weather summary card
-            Obx(() => WeatherCard(
-                  city: controller.city.value,
-                  temp: controller.temp.value,
-                  condition: controller.condition.value,
-                  high: controller.high.value,
-                  low: controller.low.value,
-                  isDark: isDark,
-                )),
+            Obx(
+              () =>
+                  weatherController.weatherList.isEmpty
+                      ? const Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                        itemCount: weatherController.weatherList.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final weather = weatherController.weatherList[index];
+                          return WeatherCard(
+                            city: weather.name,
+                            temp: weather.main.temp.round(),
+                            condition: weather.weather.first.description,
+                            high: weather.main.tempMax.round(),
+                            low: weather.main.tempMin.round(),
+                            isDark: isDark,
+                          );
+                        },
+                      ),
+            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
