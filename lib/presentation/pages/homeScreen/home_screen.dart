@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/contants/text_constants.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
+import 'package:weather_app/presentation/controllers/home_controller.dart';
 import 'package:weather_app/presentation/controllers/weather_controller.dart';
 import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
 
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final WeatherController weatherController = Get.put(WeatherController());
+    final HomeController homeController = Get.put(HomeController());
 
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
@@ -23,14 +25,18 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Weather",
+              AppTextConstants.homeScreenTitle,
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            Icon(Icons.menu, color: isDark ? Colors.white : Colors.black),
+            InkWell(
+              onTap: () {
+                
+              },
+              child: Icon(Icons.menu, color: isDark ? Colors.white : Colors.black)),
           ],
         ),
       ),

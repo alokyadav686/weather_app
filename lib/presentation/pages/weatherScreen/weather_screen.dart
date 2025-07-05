@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/data/models/weather.dart';
+
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/aqi_widget.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/feels_humd.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/sunset.dart';
@@ -26,6 +27,7 @@ class WeatherScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
+
 
     return Scaffold(
       body: SafeArea(

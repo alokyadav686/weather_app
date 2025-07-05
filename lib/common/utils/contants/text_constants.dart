@@ -1,6 +1,6 @@
 class AppTextConstants {
   // Home Screen
-  static const String homeScreenTitle = "Weather App";
+  static const String homeScreenTitle = "Weather";
   static const String searchHint = "Search for a city";
   static const String noDataFound = "No data found";
   
