@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/contants/text_constants.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
-// import 'package:weather_app/presentation/controllers/home_controller.dart';
 import 'package:weather_app/presentation/controllers/weather_controller.dart';
 import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
 
@@ -14,7 +13,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final WeatherController weatherController = Get.put(WeatherController());
-    // final HomeController homeController = Get.put(HomeController());
 
     return Scaffold(
       backgroundColor: isDark ? Colors.black : Colors.white,
@@ -34,9 +32,13 @@ class HomeScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                
+                Get.dialog(_ManageWeatherDialog(isDark: isDark));
               },
-              child: Icon(Icons.menu, color: isDark ? Colors.white : Colors.black)),
+              child: Icon(
+                Icons.menu,
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ),
           ],
         ),
       ),
@@ -133,6 +135,69 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ManageWeatherDialog extends StatelessWidget {
+  final bool isDark;
+  final WeatherController controller = Get.find();
+
+  _ManageWeatherDialog({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: isDark ? Colors.grey[900] : Colors.white,
+      title: Text(
+        'Manage Weather Cards',
+        style: TextStyle(
+          color: isDark ? Colors.white : Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      content: SizedBox(
+        width: double.maxFinite,
+        child: Obx(() {
+          final cities = controller.weatherList;
+          if (cities.isEmpty) {
+            return Text(
+              "No cities added yet.",
+              style: TextStyle(color: isDark ? Colors.white60 : Colors.black54),
+            );
+          }
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: cities.length,
+            itemBuilder: (context, index) {
+              final weather = cities[index];
+              return ListTile(
+                title: Text(
+                  weather.name,
+                  style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                ),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.red),
+                  onPressed: () {
+                    controller.removeCity(weather.name);
+
+                    Get.snackbar(
+                      "Removed",
+                      "${weather.name} removed successfully.",
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.red.withOpacity(0.8),
+                      colorText: Colors.white,
+                    );
+                  },
+                ),
+              );
+            },
+          );
+        }),
+      ),
+      actions: [
+        TextButton(onPressed: () => Get.back(), child: const Text("Close")),
+      ],
     );
   }
 }

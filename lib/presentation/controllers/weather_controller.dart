@@ -102,4 +102,8 @@ class WeatherController extends GetxController {
     filteredCities.clear();
     fetchWeather();
   }
+  void removeCity(String cityName) {
+  weatherList.removeWhere((w) => w.name.toLowerCase() == cityName.toLowerCase());
+}
+
 }
