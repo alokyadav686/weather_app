@@ -5,6 +5,7 @@ import 'package:weather_app/common/utils/contants/text_constants.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/presentation/controllers/weather_controller.dart';
 import 'package:weather_app/presentation/widgets/homeScreenWidgets/weather_card.dart';
+import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
     final WeatherController weatherController = Get.put(WeatherController());
-
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-      
+
                   TextField(
                     decoration: InputDecoration(
                       hintText: AppTextConstants.searchHint,
@@ -83,19 +83,22 @@ class HomeScreen extends StatelessWidget {
                         borderSide: BorderSide.none,
                       ),
                     ),
-                    style: TextStyle(color: isDark ? Colors.white : Colors.black),
+                    style: TextStyle(
+                      color: isDark ? Colors.white : Colors.black,
+                    ),
                     onChanged: weatherController.onSearchChanged,
                   ),
-      
+
                   const SizedBox(height: 10),
-      
+
                   Obx(() {
                     final suggestions = weatherController.filteredCities;
                     return suggestions.isNotEmpty
                         ? ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: suggestions.length,
+                          itemCount:
+                              suggestions.length > 3 ? 3 : suggestions.length,
                           itemBuilder: (context, index) {
                             final city = suggestions[index];
                             return ListTile(
@@ -105,21 +108,61 @@ class HomeScreen extends StatelessWidget {
                                   color: isDark ? Colors.white : Colors.black,
                                 ),
                               ),
-                              onTap: () => weatherController.onCitySelected(city),
+                              onTap:
+                                  () => weatherController.onCitySelected(city),
                             );
                           },
                         )
                         : const SizedBox();
                   }),
-      
+
                   const SizedBox(height: 20),
-      
+
                   Obx(() {
                     final weatherList = weatherController.weatherList;
                     if (weatherList.isEmpty) {
-                      return const Center(child: CircularProgressIndicator());
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Lottie.asset(
+                                'assets/lottie/cloudy.json',
+                                width: 150,
+                                height: 150,
+                                fit: BoxFit.contain,
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              const Text(
+                                "Looking up the skies...",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+
+                              const SizedBox(height: 12),
+
+                              const CircularProgressIndicator(),
+
+                              const SizedBox(height: 24),
+
+                              const Text(
+                                "Add a city to get started!",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
                     }
-      
+
                     return ListView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
