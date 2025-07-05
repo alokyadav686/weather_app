@@ -26,49 +26,62 @@ class WeatherHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        
-        Text(
-          city,
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.w600,
-            color: textColor,
-            letterSpacing: 0.8,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              city,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w600,
+                color: textColor,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(Icons.location_pin, color: textColor, size: 24),
+          ],
         ),
         const SizedBox(height: 8),
 
-        
-        Text(
-          "$temp°C",
-          style: TextStyle(
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              children: [
+                Text(
+                  "$temp°C",
+                  style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
+                  ),
+                ),
+                const SizedBox(height: 8),
 
+                Text(
+                  condition,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: subTextColor,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                const SizedBox(height: 6),
 
-        Text(
-          condition,
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w400,
-            color: subTextColor,
-            letterSpacing: 0.5,
-          ),
-        ),
-        const SizedBox(height: 6),
-
-        // High / Low
-        Text(
-          "H: $high°C  •  L: $low°C",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: subTextColor,
-          ),
+                // High / Low
+                Text(
+                  "H: $high°C  •  L: $low°C",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: subTextColor,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(width: 30),
+          ],
         ),
       ],
     );

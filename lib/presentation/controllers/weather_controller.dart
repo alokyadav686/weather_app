@@ -33,6 +33,22 @@ class WeatherController extends GetxController {
     }
   }
 
+  String getWeatherBackground(String description) {
+    if (description.contains("clear")) {
+      return 'assets/images/clear.png';
+    } else if (description.contains("cloud")) {
+      return 'assets/images/day.png';
+    } else if (description.contains("rain") || description.contains("thunder")) {
+      return 'assets/images/rain.png';
+    } else if (description.contains("snow" ) ||
+               description.contains("sleet") ||
+               description.contains("hail")) {
+      return 'assets/images/snow.png';
+    } else {
+      return 'assets/images/clear.png';
+    }
+  }
+
 
 
   var filteredCities = <String>[].obs;

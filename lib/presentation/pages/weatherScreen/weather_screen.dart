@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:weather_app/common/styles/spacing_styles.dart';
 import 'package:weather_app/common/utils/helpers/helper.dart';
 import 'package:weather_app/data/models/weather.dart';
+import 'package:weather_app/presentation/controllers/weather_controller.dart';
 
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/aqi_widget.dart';
 import 'package:weather_app/presentation/widgets/weatherScreenWidgets/feels_humd.dart';
@@ -14,7 +15,7 @@ import 'package:weather_app/presentation/widgets/weatherScreenWidgets/wind.dart'
 class WeatherScreen extends StatelessWidget {
   final Weather weather;
 
-  const WeatherScreen({super.key, required this.weather});
+   WeatherScreen({super.key, required this.weather});
 
   String formatTimeFromUnix(int utcTimestamp, int timezoneOffsetInSeconds) {
     final localTime = DateTime.fromMillisecondsSinceEpoch(
@@ -23,6 +24,8 @@ class WeatherScreen extends StatelessWidget {
     );
     return DateFormat('hh:mm a').format(localTime);
   }
+
+  final WeatherController weatherController = WeatherController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +68,7 @@ class WeatherScreen extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
+                image: DecorationImage(image: AssetImage( weatherController.getWeatherBackground(weather.weather.first.description,)), fit: BoxFit.cover, opacity: 0.3), 
               ),
               child: Padding(
                 padding: AppSpacingStyles.sidePadding,
