@@ -82,7 +82,7 @@ class WeatherScreen extends StatelessWidget {
                       ),
 
                       const SizedBox(height: 30),
-                      AQIWidget(isDark: isDark, aqiValue: 42.0),
+                      AQIWidget(isDark: isDark, aqiValue: 88.0),
 
                       const SizedBox(height: 20),
                       FeelsHumd(

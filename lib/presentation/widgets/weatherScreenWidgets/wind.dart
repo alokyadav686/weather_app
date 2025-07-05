@@ -42,8 +42,8 @@ class WindWidget extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: isDark ? Colors.black54 : Colors.blue.withOpacity(0.1),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+            blurRadius: 5,
+            offset: const Offset(0, 2),
           ),
         ],
       ),

@@ -10,7 +10,7 @@ class AQIWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final totalWidth = MediaQuery.of(context).size.width - 40;
-    final dotPos = (aqiValue.clamp(0, 500) / 500) * totalWidth;
+    final dotPos = (aqiValue.clamp(0, 200) / 200) * totalWidth;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -40,7 +40,7 @@ class AQIWidget extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(20)),
-                child: const Text("Good", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                child: const Text("Satisfactory", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               ),
             ],
           ),

@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Lottie.asset(
-                                'assets/lottie/cloudy.json',
+                                'assets/lottie/clear.json',
                                 width: 150,
                                 height: 150,
                                 fit: BoxFit.contain,
