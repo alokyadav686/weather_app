@@ -17,8 +17,11 @@ class HomeScreen extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
+
+
       child: Scaffold(
-        backgroundColor: isDark ? Colors.black : Colors.white,
+        
+        backgroundColor: isDark ? Colors.blueGrey[900] : Colors.blue.shade100,
         appBar: AppBar(
           elevation: 0,
           backgroundColor: isDark ? Colors.blueGrey[900] : Colors.blue.shade100,
@@ -61,6 +64,7 @@ class HomeScreen extends StatelessWidget {
           child: Padding(
             padding: AppSpacingStyles.sidePadding,
             child: SingleChildScrollView(
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
