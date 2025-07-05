@@ -18,9 +18,7 @@ class HomeScreen extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
 
-
       child: Scaffold(
-        
         backgroundColor: isDark ? Colors.blueGrey[900] : Colors.blue.shade100,
         appBar: AppBar(
           elevation: 0,
@@ -231,6 +229,7 @@ class _ManageWeatherDialog extends StatelessWidget {
                   icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
                     controller.removeCity(weather.name);
+                    Get.back();
 
                     Get.snackbar(
                       "Removed",
