@@ -225,26 +225,26 @@ class WeatherController extends GetxController {
       );
 
       try {
-        // Get placemarks from coordinates
+        
         List<Placemark> placemarks = await placemarkFromCoordinates(
           position.latitude,
           position.longitude,
         );
 
         if (placemarks.isNotEmpty) {
-          // Get the city name from placemark
+          
           String? cityName =
               placemarks.first.locality ??
               placemarks.first.subAdministrativeArea;
 
           if (cityName != null && cityName.isNotEmpty) {
             city.value = cityName;
-            fetchWeather(); // fetch weather after updating city
+            fetchWeather();
             return;
           }
         }
 
-        // If city name couldn't be determined
+
         Get.snackbar(
           "Location Error",
           "Could not determine city from location.",
