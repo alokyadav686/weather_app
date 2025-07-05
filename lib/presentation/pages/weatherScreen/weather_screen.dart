@@ -68,7 +68,7 @@ class WeatherScreen extends StatelessWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                image: DecorationImage(image: AssetImage( weatherController.getWeatherBackground(weather.weather.first.description,)), fit: BoxFit.cover, opacity: 0.3), 
+                image: DecorationImage(image: AssetImage( weatherController.getWeatherBackground(weather.weather.first.description,)), fit: BoxFit.cover, opacity: 0.7), 
               ),
               child: Padding(
                 padding: AppSpacingStyles.sidePadding,

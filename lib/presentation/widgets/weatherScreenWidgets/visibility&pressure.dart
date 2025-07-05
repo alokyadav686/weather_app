@@ -53,7 +53,7 @@ class VisibilityPressure extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
       width: 160,
       decoration: BoxDecoration(
-        color: tileColor,
+        color: isDark ? Colors.grey[850]?.withOpacity(0.5) : Colors.white.withOpacity(0.5),
         borderRadius: BorderRadius.circular(18),
         boxShadow: [
           BoxShadow(

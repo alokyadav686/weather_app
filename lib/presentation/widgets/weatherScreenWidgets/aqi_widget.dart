@@ -15,7 +15,7 @@ class AQIWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: isDark ? Colors.grey[850] : Colors.blue[50],
+        color: isDark ? Colors.grey[850]?.withOpacity(0.5) : Colors.blue[50]?.withOpacity(0.5),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           if (!isDark)

@@ -30,7 +30,7 @@ class FeelsHumd extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 16),
             height: 230,
             decoration: BoxDecoration(
-              color: isDark ? Colors.grey[850] : Colors.white,
+              color: isDark ? Colors.grey[850]?.withOpacity(0.5) : Colors.white.withOpacity(0.5),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
@@ -84,7 +84,7 @@ class FeelsHumd extends StatelessWidget {
             height: 230,
             margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: isDark ? Colors.grey[850] : Colors.white,
+              color: isDark ? Colors.grey[850]?.withOpacity(0.5) : Colors.white.withOpacity(0.5),
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
