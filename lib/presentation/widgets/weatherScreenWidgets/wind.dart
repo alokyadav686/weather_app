@@ -81,6 +81,7 @@ class WindWidget extends StatelessWidget {
                 textColor,
                 tileColor,
               ),
+              SizedBox(width: 8), 
               _buildStatTile(
                 "Gust",
                 "${gust.toStringAsFixed(1)} m/s",
@@ -88,6 +89,7 @@ class WindWidget extends StatelessWidget {
                 textColor,
                 tileColor,
               ),
+              SizedBox(width: 8), 
               _buildStatTile(
                 "Dir",
                 "${getCompassDirection(deg)}\n(${deg.toInt()}°)",
@@ -100,7 +102,7 @@ class WindWidget extends StatelessWidget {
 
           const SizedBox(height: 30),
 
-          // Decorative wind icon (can replace with animated Lottie later)
+
           Icon(Icons.air_outlined, size: 80, color: textColor.withOpacity(0.3)),
         ],
       ),

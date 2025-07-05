@@ -89,6 +89,7 @@ class HomeScreen extends StatelessWidget {
                       color: isDark ? Colors.white : Colors.black,
                     ),
                     onChanged: weatherController.onSearchChanged,
+                    onSubmitted: weatherController.onCitySelected,
                   ),
 
                   const SizedBox(height: 10),
