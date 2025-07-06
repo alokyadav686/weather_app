@@ -75,6 +75,7 @@ class WeatherController extends GetxController {
 
   void fetchWeather() async {
     final normalizedCity = city.value.trim().toLowerCase();
+    // print("this is normlized city $normalizedCity");
 
     final alreadyExists = weatherList.any(
       (w) => w.name.trim().toLowerCase() == normalizedCity,
