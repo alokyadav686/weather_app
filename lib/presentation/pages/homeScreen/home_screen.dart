@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: isDark ? Colors.white : Colors.black,
+                  
                 ),
               ),
               InkWell(
